@@ -61,7 +61,7 @@
 			transparent: true
 		})}
 		scale={[width, height, depth]}
-		rotation={[0, spin, 0]}
+		rotation={[0, 0, 0]}
 	/>
 
 	<!-- X marker -->
@@ -103,14 +103,13 @@
 
 	<!-- Player 1 -->
 	<SC.Mesh
-		geometry={new THREE.SphereGeometry()}
+		geometry={new THREE.ConeGeometry((size * 2) / 3, size * 2, 32)}
 		material={new THREE.MeshStandardMaterial({
 			color: player1Color,
 			opacity: 0.1
 		})}
 		position={player1Position}
-		scale={[size, size, size]}
-		rotation={[0, 0, 0]}
+		rotation={[spin, 0, -spin]}
 	/>
 
 	<!-- Player 2 -->
@@ -122,7 +121,7 @@
 		})}
 		position={player2Position}
 		scale={[size * 1.5, size * 1.5, size * 1.5]}
-		rotation={[0, 0, 0]}
+		rotation={[0, spin, spin]}
 	/>
 
 	<SC.PerspectiveCamera {fov} position={[camX, camY, camZ]} />
