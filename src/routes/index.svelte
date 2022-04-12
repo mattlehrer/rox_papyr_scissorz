@@ -38,6 +38,22 @@
 	SC.onFrame(() => {
 		spin += 0.01;
 	});
+
+	function resetPositions() {
+		p1X = 0;
+		p1Y = 0;
+		p1Z = 0;
+		p2X = 0;
+		p2Y = 0;
+		p2Z = 0;
+	}
+
+	function resetCamera() {
+		camX = 3;
+		camY = 5;
+		camZ = 7;
+		fov = 130;
+	}
 </script>
 
 <SC.Canvas
@@ -138,15 +154,8 @@
 	<SC.DirectionalLight intensity={0.6} position={[-2, 3, 2]} shadow={{ mapSize: [2048, 2048] }} />
 </SC.Canvas>
 
-<div class="controls text-white">
-	<!-- <label><input type="range" bind:value={width} min={0.1} max={3} step={0.1} /> width</label>
-	<label><input type="range" bind:value={height} min={0.1} max={3} step={0.1} /> height</label>
-	<label><input type="range" bind:value={depth} min={0.1} max={3} step={0.1} /> depth</label> -->
-	<label><input type="range" bind:value={camX} min={0.1} max={20} step={0.1} /> camera X</label>
-	<label><input type="range" bind:value={camY} min={0.1} max={20} step={0.1} /> camera Y</label>
-	<label><input type="range" bind:value={camZ} min={0.1} max={20} step={0.1} /> camera Z</label>
-	<label><input type="range" bind:value={fov} min={10} max={200} step={1} /> FOV</label>
-	<label class="mt-3"
+<div class="position text-white">
+	<label
 		><input type="range" bind:value={p1X} min={-10} max={10} step={1} /> Player 1 roX ({p1X})</label
 	>
 	<label
@@ -164,12 +173,32 @@
 	<label
 		><input type="range" bind:value={p2Z} min={-10} max={10} step={1} /> Player 2 scissorZ ({p2Z})</label
 	>
+	<button on:click={resetPositions} class="mt-3 border border-red-400 py-1 px-2 rounded"
+		>New Game</button
+	>
+</div>
+<div class="camera text-white">
+	<!-- <label><input type="range" bind:value={width} min={0.1} max={3} step={0.1} /> width</label>
+	<label><input type="range" bind:value={height} min={0.1} max={3} step={0.1} /> height</label>
+	<label><input type="range" bind:value={depth} min={0.1} max={3} step={0.1} /> depth</label> -->
+	<label><input type="range" bind:value={camX} min={0.1} max={20} step={0.1} /> camera X</label>
+	<label><input type="range" bind:value={camY} min={0.1} max={20} step={0.1} /> camera Y</label>
+	<label><input type="range" bind:value={camZ} min={0.1} max={20} step={0.1} /> camera Z</label>
+	<label><input type="range" bind:value={fov} min={10} max={200} step={1} /> FOV</label>
+	<button on:click={resetCamera} class="mt-3 border border-red-400 py-1 px-2 rounded"
+		>Reset Camera</button
+	>
 </div>
 
 <style>
-	.controls {
+	.position {
 		position: absolute;
 		left: 1em;
+		top: 1em;
+	}
+	.camera {
+		position: absolute;
+		right: 2em;
 		top: 1em;
 	}
 
