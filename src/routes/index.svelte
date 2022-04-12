@@ -1,5 +1,7 @@
 <script lang="ts">
 	import * as SC from 'svelte-cubed';
+	import { cubicOut } from 'svelte/easing';
+	import { tweened, type Tweened } from 'svelte/motion';
 	import * as THREE from 'three';
 
 	let player1Color = 'blue';
@@ -18,11 +20,17 @@
 	let p2X = 0,
 		p2Y = 0,
 		p2Z = 0;
-	let player1Position: [number, number, number];
-	let player2Position: [number, number, number];
+	let player1Position: Tweened<[number, number, number]> = tweened([p1X, p1Y, -p1Z], {
+		duration: 1000,
+		easing: cubicOut
+	});
+	let player2Position: Tweened<[number, number, number]> = tweened([p2X, p2Y, -p2Z], {
+		duration: 1000,
+		easing: cubicOut
+	});
 
-	$: player1Position = [p1X, p1Y, -p1Z];
-	$: player2Position = [p2X, p2Y, -p2Z];
+	$: player1Position.set([p1X, p1Y, -p1Z]);
+	$: player2Position.set([p2X, p2Y, -p2Z]);
 
 	let spin = 0;
 	let size = 0.25;
@@ -108,7 +116,7 @@
 			color: player1Color,
 			opacity: 0.1
 		})}
-		position={player1Position}
+		position={$player1Position}
 		rotation={[spin, 0, -spin]}
 	/>
 
@@ -119,7 +127,7 @@
 			color: player2Color,
 			opacity: 1
 		})}
-		position={player2Position}
+		position={$player2Position}
 		scale={[size * 1.5, size * 1.5, size * 1.5]}
 		rotation={[0, spin, spin]}
 	/>
