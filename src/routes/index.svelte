@@ -145,16 +145,24 @@
 	<label><input type="range" bind:value={camX} min={0.1} max={20} step={0.1} /> camera X</label>
 	<label><input type="range" bind:value={camY} min={0.1} max={20} step={0.1} /> camera Y</label>
 	<label><input type="range" bind:value={camZ} min={0.1} max={20} step={0.1} /> camera Z</label>
-	<label><input type="range" bind:value={fov} min={10} max={200} step={1} /> Fov</label>
-	<label><input type="range" bind:value={p1X} min={-10} max={10} step={1} /> Player 1 roX</label>
-	<label><input type="range" bind:value={p1Y} min={-10} max={10} step={1} /> Player 1 papYr</label>
-	<label
-		><input type="range" bind:value={p1Z} min={-10} max={10} step={1} /> Player 1 scissorZ</label
+	<label><input type="range" bind:value={fov} min={10} max={200} step={1} /> FOV</label>
+	<label class="mt-3"
+		><input type="range" bind:value={p1X} min={-10} max={10} step={1} /> Player 1 roX ({p1X})</label
 	>
-	<label><input type="range" bind:value={p2X} min={-10} max={10} step={1} /> Player 2 roX</label>
-	<label><input type="range" bind:value={p2Y} min={-10} max={10} step={1} /> Player 2 papYr</label>
 	<label
-		><input type="range" bind:value={p2Z} min={-10} max={10} step={1} /> Player 2 scissorZ</label
+		><input type="range" bind:value={p1Y} min={-10} max={10} step={1} /> Player 1 papYr ({p1Y})</label
+	>
+	<label
+		><input type="range" bind:value={p1Z} min={-10} max={10} step={1} /> Player 1 scissorZ ({p1Z})</label
+	>
+	<label class="mt-3"
+		><input type="range" bind:value={p2X} min={-10} max={10} step={1} /> Player 2 roX ({p2X})</label
+	>
+	<label
+		><input type="range" bind:value={p2Y} min={-10} max={10} step={1} /> Player 2 papYr ({p2Y})</label
+	>
+	<label
+		><input type="range" bind:value={p2Z} min={-10} max={10} step={1} /> Player 2 scissorZ ({p2Z})</label
 	>
 </div>
 
