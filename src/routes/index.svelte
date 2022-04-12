@@ -126,7 +126,7 @@
 	/>
 
 	<SC.PerspectiveCamera {fov} position={[camX, camY, camZ]} />
-	<SC.OrbitControls enableZoom={false} />
+	<SC.OrbitControls enableZoom={true} />
 	<SC.AmbientLight intensity={0.6} />
 	<SC.DirectionalLight intensity={0.6} position={[-2, 3, 2]} shadow={{ mapSize: [2048, 2048] }} />
 </SC.Canvas>
@@ -139,12 +139,16 @@
 	<label><input type="range" bind:value={camY} min={0.1} max={20} step={0.1} /> camera Y</label>
 	<label><input type="range" bind:value={camZ} min={0.1} max={20} step={0.1} /> camera Z</label>
 	<label><input type="range" bind:value={fov} min={10} max={200} step={1} /> Fov</label>
-	<label><input type="range" bind:value={p1X} min={-10} max={10} step={1} /> Player 1 X</label>
-	<label><input type="range" bind:value={p1Y} min={-10} max={10} step={1} /> Player 1 Y</label>
-	<label><input type="range" bind:value={p1Z} min={-10} max={10} step={1} /> Player 1 Z</label>
-	<label><input type="range" bind:value={p2X} min={-10} max={10} step={1} /> Player 2 X</label>
-	<label><input type="range" bind:value={p2Y} min={-10} max={10} step={1} /> Player 2 Y</label>
-	<label><input type="range" bind:value={p2Z} min={-10} max={10} step={1} /> Player 2 Z</label>
+	<label><input type="range" bind:value={p1X} min={-10} max={10} step={1} /> Player 1 roX</label>
+	<label><input type="range" bind:value={p1Y} min={-10} max={10} step={1} /> Player 1 papYr</label>
+	<label
+		><input type="range" bind:value={p1Z} min={-10} max={10} step={1} /> Player 1 scissorZ</label
+	>
+	<label><input type="range" bind:value={p2X} min={-10} max={10} step={1} /> Player 2 roX</label>
+	<label><input type="range" bind:value={p2Y} min={-10} max={10} step={1} /> Player 2 papYr</label>
+	<label
+		><input type="range" bind:value={p2Z} min={-10} max={10} step={1} /> Player 2 scissorZ</label
+	>
 </div>
 
 <style>
