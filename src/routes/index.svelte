@@ -212,4 +212,7 @@
 		width: 80px;
 		margin: 0;
 	}
+	.position input {
+		width: 120px;
+	}
 </style>
