@@ -7,9 +7,7 @@
 	let player1Color = 'blue';
 	let player2Color = 'green';
 
-	let width = 7;
-	let height = 7;
-	let depth = 7;
+	let sphereRadius = 10;
 	let camX = 3,
 		camY = 5,
 		camZ = 7;
@@ -64,7 +62,7 @@
 >
 	<SC.Group position={[0, 0, 0]}>
 		<SC.Mesh
-			geometry={new THREE.PlaneGeometry(25, 25)}
+			geometry={new THREE.PlaneGeometry(50, 50)}
 			material={new THREE.MeshStandardMaterial({
 				color: 'black',
 				opacity: 0.1,
@@ -74,7 +72,7 @@
 			rotation={[0, 0, 0]}
 		/>
 
-		<SC.Primitive object={new THREE.GridHelper(20, 20, 'red', 'white')} position={[0, 0.001, 0]} />
+		<SC.Primitive object={new THREE.GridHelper(50, 50, 'red', 'white')} position={[0, 0.001, 0]} />
 	</SC.Group>
 
 	<SC.Mesh
@@ -84,7 +82,7 @@
 			opacity: 0.3,
 			transparent: true
 		})}
-		scale={[width, height, depth]}
+		scale={[sphereRadius, sphereRadius, sphereRadius]}
 		rotation={[0, 0, 0]}
 	/>
 
