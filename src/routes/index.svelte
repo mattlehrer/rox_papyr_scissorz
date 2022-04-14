@@ -8,9 +8,9 @@
 	let player2Color = 'green';
 
 	let sphereRadius = 10;
-	let camX = 3,
-		camY = 5,
-		camZ = 7;
+	let camX = 0.6,
+		camY = 1,
+		camZ = 1.4;
 	let fov = 130;
 	let p1X = 0,
 		p1Y = 0,
@@ -62,7 +62,7 @@
 >
 	<SC.Group position={[0, 0, 0]}>
 		<SC.Mesh
-			geometry={new THREE.PlaneGeometry(50, 50)}
+			geometry={new THREE.PlaneGeometry(4 * sphereRadius, 4 * sphereRadius)}
 			material={new THREE.MeshStandardMaterial({
 				color: 'black',
 				opacity: 0.1,
@@ -72,7 +72,10 @@
 			rotation={[0, 0, 0]}
 		/>
 
-		<SC.Primitive object={new THREE.GridHelper(50, 50, 'red', 'white')} position={[0, 0.001, 0]} />
+		<SC.Primitive
+			object={new THREE.GridHelper(4 * sphereRadius, 4 * sphereRadius, 'red', 'white')}
+			position={[0, 0.001, 0]}
+		/>
 	</SC.Group>
 
 	<SC.Mesh
@@ -146,7 +149,10 @@
 		rotation={[0, spin, spin]}
 	/>
 
-	<SC.PerspectiveCamera {fov} position={[camX, camY, camZ]} />
+	<SC.PerspectiveCamera
+		{fov}
+		position={[camX * sphereRadius, camY * sphereRadius, camZ * sphereRadius]}
+	/>
 	<SC.OrbitControls enableZoom={true} />
 	<SC.AmbientLight intensity={0.6} />
 	<SC.DirectionalLight intensity={0.6} position={[-2, 3, 2]} shadow={{ mapSize: [2048, 2048] }} />
@@ -154,38 +160,44 @@
 
 <div class="position text-white">
 	<label
-		><input type="range" bind:value={p1X} min={-10} max={10} step={1} /> Player 1 roX ({p1X})</label
+		><input type="range" bind:value={p1X} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
+		Player 1 roX ({p1X})</label
 	>
 	<label
-		><input type="range" bind:value={p1Y} min={-10} max={10} step={1} /> Player 1 papYr ({p1Y})</label
+		><input type="range" bind:value={p1Y} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
+		Player 1 papYr ({p1Y})</label
 	>
 	<label
-		><input type="range" bind:value={p1Z} min={-10} max={10} step={1} /> Player 1 scissorZ ({p1Z})</label
+		><input type="range" bind:value={p1Z} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
+		Player 1 scissorZ ({p1Z})</label
 	>
 	<label class="mt-3"
-		><input type="range" bind:value={p2X} min={-10} max={10} step={1} /> Player 2 roX ({p2X})</label
+		><input type="range" bind:value={p2X} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
+		Player 2 roX ({p2X})</label
 	>
 	<label
-		><input type="range" bind:value={p2Y} min={-10} max={10} step={1} /> Player 2 papYr ({p2Y})</label
+		><input type="range" bind:value={p2Y} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
+		Player 2 papYr ({p2Y})</label
 	>
 	<label
-		><input type="range" bind:value={p2Z} min={-10} max={10} step={1} /> Player 2 scissorZ ({p2Z})</label
+		><input type="range" bind:value={p2Z} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
+		Player 2 scissorZ ({p2Z})</label
 	>
 	<button on:click={resetPositions} class="mt-3 border border-red-400 py-1 px-2 rounded"
 		>New Game</button
 	>
 </div>
 <div class="camera text-white">
-	<!-- <label><input type="range" bind:value={width} min={0.1} max={3} step={0.1} /> width</label>
-	<label><input type="range" bind:value={height} min={0.1} max={3} step={0.1} /> height</label>
-	<label><input type="range" bind:value={depth} min={0.1} max={3} step={0.1} /> depth</label> -->
-	<label><input type="range" bind:value={camX} min={0.1} max={20} step={0.1} /> camera X</label>
+	<label
+		><input type="range" bind:value={sphereRadius} min={3} max={30} step={1} /> Game Size ({sphereRadius})</label
+	>
+	<!-- <label><input type="range" bind:value={camX} min={0.1} max={20} step={0.1} /> camera X</label>
 	<label><input type="range" bind:value={camY} min={0.1} max={20} step={0.1} /> camera Y</label>
 	<label><input type="range" bind:value={camZ} min={0.1} max={20} step={0.1} /> camera Z</label>
-	<label><input type="range" bind:value={fov} min={10} max={200} step={1} /> FOV</label>
-	<button on:click={resetCamera} class="mt-3 border border-red-400 py-1 px-2 rounded"
+	<label><input type="range" bind:value={fov} min={10} max={200} step={1} /> FOV</label> -->
+	<!-- <button on:click={resetCamera} class="mt-3 border border-red-400 py-1 px-2 rounded"
 		>Reset Camera</button
-	>
+	> -->
 </div>
 
 <style>
