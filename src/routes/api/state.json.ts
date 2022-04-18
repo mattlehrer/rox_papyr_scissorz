@@ -4,7 +4,7 @@ import type { RequestEvent } from '@sveltejs/kit/types/private';
 const gameStateKey = 'GameState';
 
 export async function get({ platform }: RequestEvent) {
-	const state = await platform.env.RPS.get(gameStateKey);
+	const state = JSON.parse(await platform.env.RPS.get(gameStateKey));
 	return {
 		body: { state }
 	};

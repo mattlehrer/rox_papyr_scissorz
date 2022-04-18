@@ -4,7 +4,7 @@ import type { RequestEvent } from '@sveltejs/kit/types/private';
 const gameSizeKey = 'GameSize';
 
 export async function get({ platform }: RequestEvent) {
-	const size = await platform.env.RPS.get(gameSizeKey);
+	const size = Number(await platform.env.RPS.get(gameSizeKey));
 	return {
 		body: { size }
 	};
