@@ -67,6 +67,7 @@
 		await fetch('/api/size.json')
 			.then((res) => res.json())
 			.then((data) => {
+				console.log(JSON.stringify(data, null, 2));
 				try {
 					hasSize(data);
 					$gameSize = data.size || $gameSize;
@@ -79,6 +80,7 @@
 		await fetch('/api/state.json')
 			.then((res) => res.json())
 			.then((data) => {
+				console.log(JSON.stringify(data, null, 2));
 				try {
 					hasState(data);
 					p1X = Number(data.p1xcurrent) || 0;
@@ -94,6 +96,8 @@
 			});
 	}
 </script>
+
+<svelte:head><title>roX papYr scissorZ</title></svelte:head>
 
 <SC.Canvas
 	antialias
