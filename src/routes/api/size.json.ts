@@ -15,7 +15,7 @@ export async function post({ request, platform }: RequestEvent) {
 	const object = {};
 	formData.forEach((value, key) => (object[key] = value));
 
-	const data: unknown = JSON.parse(JSON.stringify(object));
+	const data: unknown = JSON.parse(object);
 	console.log({ data });
 	hasSize(data);
 
