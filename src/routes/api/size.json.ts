@@ -1,3 +1,4 @@
+import { hasSize } from '$lib/utils';
 import type { RequestEvent } from '@sveltejs/kit/types/private';
 
 const gameSizeKey = 'GameSize';
@@ -25,11 +26,3 @@ export async function post({ request, platform }: RequestEvent) {
 	console.log('New Game Size: ', data.size);
 	return { status: 201 };
 }
-
-function hasSize(obj: any): asserts obj is RPSSize {
-	if (!obj.size) {
-		throw new Error('Missing size property');
-	}
-}
-
-type RPSSize = { size: number };
