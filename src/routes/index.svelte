@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { gameSize } from '$lib/stores';
+	import { hasSize, hasState } from '$lib/utils';
+	import { onMount } from 'svelte';
 	import * as SC from 'svelte-cubed';
 	import { cubicOut } from 'svelte/easing';
 	import { tweened, type Tweened } from 'svelte/motion';
@@ -19,6 +21,7 @@
 	let p2X = 0,
 		p2Y = 0,
 		p2Z = 0;
+
 	let player1Position: Tweened<[number, number, number]> = tweened([p1X, p1Y, -p1Z], {
 		duration: 1000,
 		easing: cubicOut
@@ -47,11 +50,48 @@
 		p2Z = 0;
 	}
 
-	function resetCamera() {
-		camX = 3;
-		camY = 5;
-		camZ = 7;
-		fov = 130;
+	// function resetCamera() {
+	// 	camX = 3;
+	// 	camY = 5;
+	// 	camZ = 7;
+	// 	fov = 130;
+	// }
+
+	onMount(async () => {
+		setTimeout(updateSize, 1500);
+		setTimeout(updateState, 500);
+		await updateSize();
+	});
+
+	async function updateSize() {
+		await fetch('/api/size.json')
+			.then((res) => res.json())
+			.then((data) => {
+				try {
+					hasSize(data);
+					$gameSize = data.size || $gameSize;
+				} catch (e) {
+					console.error(e);
+				}
+			});
+	}
+	async function updateState() {
+		await fetch('/api/state.json')
+			.then((res) => res.json())
+			.then((data) => {
+				try {
+					hasState(data);
+					p1X = Number(data.p1xcurrent) || 0;
+					p1Y = Number(data.p1ycurrent) || 0;
+					p1Z = Number(data.p1zcurrent) || 0;
+
+					p2X = Number(data.p2xcurrent) || 0;
+					p2Y = Number(data.p2ycurrent) || 0;
+					p2Z = Number(data.p2zcurrent) || 0;
+				} catch (e) {
+					console.error(e);
+				}
+			});
 	}
 </script>
 
