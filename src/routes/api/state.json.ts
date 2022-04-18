@@ -15,12 +15,11 @@ export async function post({ request, platform }: RequestEvent) {
 	const object = {};
 	formData.forEach((value, key) => (object[key] = value));
 
-	// const data: unknown = JSON.parse(JSON.stringify(object));
-	const data: unknown = JSON.parse(object);
+	const data: unknown = JSON.parse(JSON.stringify(object));
 	console.log({ data });
 	hasState(data);
 
-	console.log('Current Game State: ', platform.env.RPS.get(gameStateKey));
+	// console.log('Current Game State: ', platform.env.RPS.get(gameStateKey));
 
 	await platform.env.RPS.put(
 		gameStateKey,

@@ -15,11 +15,11 @@ export async function post({ request, platform }: RequestEvent) {
 	const object = {};
 	formData.forEach((value, key) => (object[key] = value));
 
-	const data: unknown = JSON.parse(object);
+	const data: unknown = JSON.parse(JSON.stringify(object));
 	console.log({ data });
 	hasSize(data);
 
-	console.log('Current Game Size: ', platform.env.RPS.get(gameSizeKey));
+	// console.log('Current Game Size: ', platform.env.RPS.get(gameSizeKey));
 
 	await platform.env.RPS.put(gameSizeKey, JSON.stringify(data.size));
 
