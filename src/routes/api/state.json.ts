@@ -6,7 +6,7 @@ const gameStateKey = 'GameState';
 export async function get({ platform }: RequestEvent) {
 	const state = JSON.parse(await platform.env.RPS.get(gameStateKey));
 	return {
-		body: { state }
+		body: { state, ok: true }
 	};
 }
 
