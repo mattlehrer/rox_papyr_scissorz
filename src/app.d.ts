@@ -4,7 +4,14 @@
 // for information about these interfaces
 declare namespace App {
 	// interface Locals {}
-	// interface Platform {}
+	interface Platform {
+		env: {
+			RPS: KVNamespace;
+		};
+		context: {
+			waitUntil(promise: Promise<any>): void;
+		};
+	}
 	// interface Session {}
 	// interface Stuff {}
 }

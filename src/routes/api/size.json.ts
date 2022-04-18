@@ -1,15 +1,28 @@
-import { gameSize } from '$lib/stores';
 import type { RequestEvent } from '@sveltejs/kit/types/private';
-import { get } from 'svelte/store';
 
-export async function post({ request }: RequestEvent) {
+const gameSizeKey = 'GameSize';
+
+export async function post({ request, platform }: RequestEvent) {
 	const formData = await request.formData();
 	const object = {};
 	formData.forEach((value, key) => (object[key] = value));
-	const data: any = JSON.parse(JSON.stringify(object));
+
+	const data: unknown = JSON.parse(JSON.stringify(object));
 	console.log({ data });
-	console.log('Current Game Size: ', get(gameSize));
-	gameSize.set(data.size);
-	console.log('New Game Size: ', get(gameSize));
+	hasSize(data);
+
+	console.log('Current Game Size: ', platform.env.RPS.get(gameSizeKey));
+
+	await platform.env.RPS.put(gameSizeKey, JSON.stringify(data.size));
+
+	console.log('New Game Size: ', data.size);
 	return { status: 201 };
 }
+
+function hasSize(obj: any): asserts obj is RPSSize {
+	if (!obj.size) {
+		throw new Error('Missing size property');
+	}
+}
+
+type RPSSize = { size: number };
