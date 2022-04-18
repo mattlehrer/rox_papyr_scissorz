@@ -67,7 +67,9 @@
 		await fetch('/api/size.json')
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(JSON.stringify(data, null, 2));
+				// console.log(JSON.stringify(data, null, 2));
+				console.log({ data });
+
 				try {
 					hasSize(data);
 					$gameSize = data.size || $gameSize;
@@ -80,7 +82,7 @@
 		await fetch('/api/state.json')
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(JSON.stringify(data, null, 2));
+				console.log({ data });
 				try {
 					hasState(data);
 					p1X = Number(data.p1xcurrent) || 0;
