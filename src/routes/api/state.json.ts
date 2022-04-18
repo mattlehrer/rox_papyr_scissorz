@@ -25,8 +25,8 @@ export async function post({ request, platform }: RequestEvent) {
 	await platform.env.RPS.put(
 		gameStateKey,
 		JSON.stringify({
-			p1: [data.p1xcurrent, data.p1ycurrent, data.p1zcurrent],
-			p2: [data.p2xcurrent, data.p2ycurrent, data.p2zcurrent]
+			p1: [Number(data.p1xcurrent), Number(data.p1ycurrent), Number(data.p1zcurrent)],
+			p2: [Number(data.p2xcurrent), Number(data.p2ycurrent), Number(data.p2zcurrent)]
 		})
 	);
 
