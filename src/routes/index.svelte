@@ -57,8 +57,8 @@
 	// }
 
 	onMount(async () => {
-		setInterval(updateSize, 1500);
-		setInterval(updateState, 500);
+		setInterval(updateSize, 5000);
+		setInterval(updateState, 1000);
 		await updateSize();
 	});
 
