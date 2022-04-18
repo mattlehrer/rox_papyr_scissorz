@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { gameSize } from '$lib/stores';
 	import * as SC from 'svelte-cubed';
 	import { cubicOut } from 'svelte/easing';
 	import { tweened, type Tweened } from 'svelte/motion';
@@ -7,7 +8,7 @@
 	let player1Color = 'blue';
 	let player2Color = 'green';
 
-	let sphereRadius = 10;
+	let sphereRadius = $gameSize;
 	let camX = 0.6,
 		camY = 1,
 		camZ = 1.4;
