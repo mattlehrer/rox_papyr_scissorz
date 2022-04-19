@@ -27,3 +27,7 @@ type RPSPosition = {
 	p2ycurrent: number;
 	p2zcurrent: number;
 };
+
+export function distanceFromOrigin(x: number, y: number, z: number): number {
+	return Math.sqrt(x * x + y * y + z * z);
+}

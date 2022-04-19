@@ -7,7 +7,6 @@ const gameSizeKey = 'GameSize';
 export async function get({ platform }: RequestEvent) {
 	const redis = new Redis({ url: platform.env.UPSTASH_URL, token: platform.env.UPSTASH_TOKEN });
 
-	// const size = Number(await platform.env.RPS.get(gameSizeKey, { cacheTtl: 1 }));
 	const size = Number(await redis.get(gameSizeKey));
 	return {
 		body: { size }
@@ -27,7 +26,6 @@ export async function post({ request, platform }: RequestEvent) {
 
 	// console.log('Current Game Size: ', platform.env.RPS.get(gameSizeKey));
 
-	// await platform.env.RPS.put(gameSizeKey, JSON.stringify(data.size));
 	await redis.set(gameSizeKey, JSON.stringify(data.size));
 
 	// console.log('New Game Size: ', data.size);

@@ -7,7 +7,6 @@ const gameStateKey = 'GameState';
 export async function get({ platform }: RequestEvent) {
 	const redis = new Redis({ url: platform.env.UPSTASH_URL, token: platform.env.UPSTASH_TOKEN });
 
-	// const state = JSON.parse(await platform.env.RPS.get(gameStateKey, { cacheTtl: 1 }));
 	const state = JSON.parse(await redis.get(gameStateKey));
 	return {
 		body: { state }
@@ -27,13 +26,6 @@ export async function post({ request, platform }: RequestEvent) {
 
 	// console.log('Current Game State: ', platform.env.RPS.get(gameStateKey));
 
-	// await platform.env.RPS.put(
-	// 	gameStateKey,
-	// 	JSON.stringify({
-	// 		p1: [Number(data.p1xcurrent), Number(data.p1ycurrent), Number(data.p1zcurrent)],
-	// 		p2: [Number(data.p2xcurrent), Number(data.p2ycurrent), Number(data.p2zcurrent)]
-	// 	})
-	// );
 	await redis.set(
 		gameStateKey,
 		JSON.stringify({

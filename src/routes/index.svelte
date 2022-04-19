@@ -5,11 +5,14 @@
 	// add buttons
 	// add check for game winner
 	import { gameSize } from '$lib/stores';
+	import { distanceFromOrigin } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import * as SC from 'svelte-cubed';
 	import { cubicOut } from 'svelte/easing';
 	import { tweened, type Tweened } from 'svelte/motion';
 	import * as THREE from 'three';
+
+	let sizeInterval: NodeJS.Timer;
 
 	let player1Color = 'blue';
 	let player2Color = 'green';
@@ -62,15 +65,15 @@
 	// }
 
 	onMount(async () => {
-		setInterval(updateSize, 5000);
+		sizeInterval = setInterval(updateSize, 5000);
 		setInterval(updateState, 1000);
 		await updateSize();
 	});
 
 	async function updateSize() {
-		await fetch(`/api/size.json?q=${Date.now()}`, {
+		await fetch(`/api/size.json`, {
 			headers: {
-				cache: 'no-store'
+				'Cache-Control': 'no-store'
 			}
 		})
 			.then((res) => res.json())
@@ -80,6 +83,8 @@
 
 				try {
 					// hasSize(data);
+					if (data.size !== undefined && data.size !== $gameSize) clearInterval(sizeInterval);
+
 					$gameSize = data.size || $gameSize;
 				} catch (e) {
 					console.error(e);
@@ -87,9 +92,10 @@
 			});
 	}
 	async function updateState() {
-		await fetch(`/api/state.json?q=${Date.now()}`, {
+		await fetch(`/api/state.json`, {
+			// await fetch(`/api/state.json?q=${Date.now()}`, {
 			headers: {
-				cache: 'no-store'
+				'Cache-Control': 'no-store'
 			}
 		})
 			.then((res) => res.json())
@@ -210,7 +216,7 @@
 
 	<SC.PerspectiveCamera
 		{fov}
-		position={[camX * sphereRadius, camY * sphereRadius, camZ * sphereRadius]}
+		position={[camX * sphereRadius, (camY * sphereRadius) / 2, camZ * sphereRadius]}
 	/>
 	<SC.OrbitControls enableZoom={true} />
 	<SC.AmbientLight intensity={0.6} />
@@ -218,7 +224,10 @@
 </SC.Canvas>
 
 <div class="position text-white">
-	<label
+	<div class={distanceFromOrigin(p1X, p1Y, p1Z) > 10 ? 'text-green-400' : 'text-white'}>
+		Player 1: {distanceFromOrigin(p1X, p1Y, p1Z).toPrecision(4)} from the origin
+	</div>
+	<label class="mt-2"
 		><input type="range" bind:value={p1X} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
 		Player 1 roX ({p1X})</label
 	>
@@ -230,7 +239,11 @@
 		><input type="range" bind:value={p1Z} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
 		Player 1 scissorZ ({p1Z})</label
 	>
-	<label class="mt-3"
+	<div class={`mt-6 ${distanceFromOrigin(p2X, p2Y, p2Z) > 10 ? 'text-green-400' : 'text-white'}`}>
+		Player 2: {distanceFromOrigin(p2X, p2Y, p2Z).toPrecision(4)} from the origin
+	</div>
+
+	<label class="mt-2"
 		><input type="range" bind:value={p2X} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
 		Player 2 roX ({p2X})</label
 	>
