@@ -71,7 +71,8 @@
 	});
 
 	async function updateSize() {
-		await fetch(`/api/size.json`, {
+		// await fetch(`/api/size.json`, {
+		await fetch(`/api/size.json?${Date.now()}`, {
 			headers: {
 				'Cache-Control': 'no-store'
 			}
@@ -92,8 +93,8 @@
 			});
 	}
 	async function updateState() {
-		await fetch(`/api/state.json`, {
-			// await fetch(`/api/state.json?q=${Date.now()}`, {
+		// await fetch(`/api/state.json`, {
+		await fetch(`/api/state.json?${Date.now()}`, {
 			headers: {
 				'Cache-Control': 'no-store'
 			}
