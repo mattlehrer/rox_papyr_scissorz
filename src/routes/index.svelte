@@ -72,18 +72,13 @@
 
 	async function updateSize() {
 		// await fetch(`/api/size.json`, {
-		await fetch(`/api/size.json?${Date.now()}`, {
-			headers: {
-				'Cache-Control': 'no-store'
-			}
-		})
+		await fetch(`/api/size.json`)
 			.then((res) => res.json())
 			.then((data: any) => {
 				// console.log(JSON.stringify(data, null, 2));
 				console.log({ data });
 
 				try {
-					// hasSize(data);
 					if (data.size !== undefined && data.size !== $gameSize) clearInterval(sizeInterval);
 
 					$gameSize = data.size || $gameSize;
@@ -94,16 +89,11 @@
 	}
 	async function updateState() {
 		// await fetch(`/api/state.json`, {
-		await fetch(`/api/state.json?${Date.now()}`, {
-			headers: {
-				'Cache-Control': 'no-store'
-			}
-		})
+		await fetch(`/api/state.json`)
 			.then((res) => res.json())
 			.then((data: any) => {
-				console.log({ data });
+				console.log({ positions: data.state });
 				try {
-					// hasState(data);
 					if (data.state.p1) [p1X, p1Y, p1Z] = data.state.p1;
 
 					if (data.state.p2) [p2X, p2Y, p2Z] = data.state.p2;

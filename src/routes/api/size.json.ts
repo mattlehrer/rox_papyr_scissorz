@@ -9,7 +9,10 @@ export async function get({ platform }: RequestEvent) {
 
 	const size = Number(await redis.get(gameSizeKey));
 	return {
-		body: { size }
+		body: { size },
+		headers: {
+			'Cache-Control': 'no-cache, no-store, must-revalidate'
+		}
 	};
 }
 

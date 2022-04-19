@@ -9,7 +9,10 @@ export async function get({ platform }: RequestEvent) {
 
 	const state = (await redis.get(gameStateKey)) as string;
 	return {
-		body: { state }
+		body: { state },
+		headers: {
+			'Cache-Control': 'no-cache, no-store, must-revalidate'
+		}
 	};
 }
 
