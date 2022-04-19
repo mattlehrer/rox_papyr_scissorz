@@ -14,7 +14,7 @@ export async function get({ platform }: RequestEvent) {
 	};
 }
 
-export async function post({ request }: RequestEvent) {
+export async function post({ request, platform }: RequestEvent) {
 	const redis = new Redis({ url: platform.env.UPSTASH_URL, token: platform.env.UPSTASH_TOKEN });
 
 	const formData = await request.formData();
