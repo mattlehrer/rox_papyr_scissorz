@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@upstash/redis": "^1.2.0",
 		"svelte-cubed": "^0.2.1",
 		"three": "^0.139.2"
 	}
