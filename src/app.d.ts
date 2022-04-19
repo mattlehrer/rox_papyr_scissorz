@@ -7,6 +7,8 @@ declare namespace App {
 	interface Platform {
 		env: {
 			RPS: KVNamespace;
+			UPSTASH_TOKEN: string;
+			UPSTASH_URL: string;
 		};
 		context: {
 			waitUntil(promise: Promise<any>): void;
