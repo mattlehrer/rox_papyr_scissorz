@@ -63,7 +63,11 @@
 	});
 
 	async function updateSize() {
-		await fetch('/api/size.json')
+		await fetch('/api/size.json', {
+			headers: {
+				'X-CacheBust': String(Date.now())
+			}
+		})
 			.then((res) => res.json())
 			.then((data: any) => {
 				// console.log(JSON.stringify(data, null, 2));
@@ -78,7 +82,11 @@
 			});
 	}
 	async function updateState() {
-		await fetch('/api/state.json')
+		await fetch('/api/state.json', {
+			headers: {
+				'X-CacheBust': String(Date.now())
+			}
+		})
 			.then((res) => res.json())
 			.then((data: any) => {
 				console.log({ data });
