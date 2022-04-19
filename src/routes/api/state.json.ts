@@ -4,8 +4,8 @@ import { Redis } from '@upstash/redis';
 
 const gameStateKey = 'GameState';
 
-export async function get({ env }: RequestEvent) {
-	const redis = new Redis({ url: env.UPSTASH_URL, token: env.UPSTASH_TOKEN });
+export async function get() {
+	const redis = new Redis({ url: UPSTASH_URL, token: UPSTASH_TOKEN });
 
 	// const state = JSON.parse(await platform.env.RPS.get(gameStateKey, { cacheTtl: 1 }));
 	const state = JSON.parse(await redis.get(gameStateKey));
@@ -14,8 +14,8 @@ export async function get({ env }: RequestEvent) {
 	};
 }
 
-export async function post({ request, env }: RequestEvent) {
-	const redis = new Redis({ url: env.UPSTASH_URL, token: env.UPSTASH_TOKEN });
+export async function post({ request }: RequestEvent) {
+	const redis = new Redis({ url: UPSTASH_URL, token: UPSTASH_TOKEN });
 
 	const formData = await request.formData();
 	const object = {};
