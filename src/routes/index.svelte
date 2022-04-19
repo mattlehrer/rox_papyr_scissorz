@@ -1,4 +1,9 @@
 <script lang="ts">
+	// TODO:
+	// deal with cache issue
+	// add distance calculation
+	// add buttons
+	// add check for game winner
 	import { gameSize } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import * as SC from 'svelte-cubed';
@@ -65,7 +70,7 @@
 	async function updateSize() {
 		await fetch('/api/size.json', {
 			headers: {
-				'X-CacheBust': String(Date.now())
+				cache: 'no-store'
 			}
 		})
 			.then((res) => res.json())
@@ -84,7 +89,7 @@
 	async function updateState() {
 		await fetch('/api/state.json', {
 			headers: {
-				'X-CacheBust': String(Date.now())
+				cache: 'no-store'
 			}
 		})
 			.then((res) => res.json())
