@@ -223,45 +223,89 @@
 	<SC.DirectionalLight intensity={0.6} position={[-2, 3, 2]} shadow={{ mapSize: [2048, 2048] }} />
 </SC.Canvas>
 
-<div class="position text-white">
+<div class="absolute top-16 sm:top-4 left-4 text-white">
 	<div class={distanceFromOrigin(p1X, p1Y, p1Z) > 10 ? 'text-green-400' : 'text-white'}>
 		Player 1: {distanceFromOrigin(p1X, p1Y, p1Z).toPrecision(4)} from the origin
 	</div>
 	<label class="mt-2"
-		><input type="range" bind:value={p1X} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
-		Player 1 roX ({p1X})</label
+		><input
+			class="w-20 sm:w-32"
+			type="range"
+			bind:value={p1X}
+			min={-2 * sphereRadius}
+			max={2 * sphereRadius}
+			step={1}
+		/>
+		P1 roX ({p1X})</label
 	>
 	<label
-		><input type="range" bind:value={p1Y} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
-		Player 1 papYr ({p1Y})</label
+		><input
+			class="w-20 sm:w-32"
+			type="range"
+			bind:value={p1Y}
+			min={-2 * sphereRadius}
+			max={2 * sphereRadius}
+			step={1}
+		/>
+		P1 papYr ({p1Y})</label
 	>
 	<label
-		><input type="range" bind:value={p1Z} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
-		Player 1 scissorZ ({p1Z})</label
+		><input
+			class="w-20 sm:w-32"
+			type="range"
+			bind:value={p1Z}
+			min={-2 * sphereRadius}
+			max={2 * sphereRadius}
+			step={1}
+		/>
+		P1 scissorZ ({p1Z})</label
 	>
 	<div class={`mt-6 ${distanceFromOrigin(p2X, p2Y, p2Z) > 10 ? 'text-green-400' : 'text-white'}`}>
 		Player 2: {distanceFromOrigin(p2X, p2Y, p2Z).toPrecision(4)} from the origin
 	</div>
 
 	<label class="mt-2"
-		><input type="range" bind:value={p2X} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
-		Player 2 roX ({p2X})</label
+		><input
+			class="w-20 sm:w-32"
+			type="range"
+			bind:value={p2X}
+			min={-2 * sphereRadius}
+			max={2 * sphereRadius}
+			step={1}
+		/>
+		P2 roX ({p2X})</label
 	>
 	<label
-		><input type="range" bind:value={p2Y} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
-		Player 2 papYr ({p2Y})</label
+		><input
+			class="w-20 sm:w-32"
+			type="range"
+			bind:value={p2Y}
+			min={-2 * sphereRadius}
+			max={2 * sphereRadius}
+			step={1}
+		/>
+		P2 papYr ({p2Y})</label
 	>
 	<label
-		><input type="range" bind:value={p2Z} min={-2 * sphereRadius} max={2 * sphereRadius} step={1} />
-		Player 2 scissorZ ({p2Z})</label
+		><input
+			class="w-20 sm:w-32"
+			type="range"
+			bind:value={p2Z}
+			min={-2 * sphereRadius}
+			max={2 * sphereRadius}
+			step={1}
+		/>
+		P2 scissorZ ({p2Z})</label
 	>
-	<button on:click={resetPositions} class="mt-3 border border-red-400 py-1 px-2 rounded"
-		>New Game</button
+	<button
+		on:click={resetPositions}
+		class="mt-3 border border-red-400 py-1 px-2 rounded bg-gray-800 bg-opacity-50">New Game</button
 	>
 </div>
-<div class="camera text-white">
+<div class="absolute top-4 left-4 sm:left-auto sm:right-4 text-white">
 	<label
-		><input type="range" bind:value={sphereRadius} min={3} max={30} step={1} /> Game Size ({sphereRadius})</label
+		><input class="w-20" type="range" bind:value={sphereRadius} min={3} max={30} step={1} /> Game
+		Size ({sphereRadius})</label
 	>
 	<!-- <label><input type="range" bind:value={camX} min={0.1} max={20} step={0.1} /> camera X</label>
 	<label><input type="range" bind:value={camY} min={0.1} max={20} step={0.1} /> camera Y</label>
@@ -273,28 +317,9 @@
 </div>
 
 <style>
-	.position {
-		position: absolute;
-		left: 1em;
-		top: 1em;
-	}
-	.camera {
-		position: absolute;
-		right: 2em;
-		top: 1em;
-	}
-
 	label {
 		display: flex;
 		gap: 0.5em;
 		align-items: center;
-	}
-
-	input {
-		width: 80px;
-		margin: 0;
-	}
-	.position input {
-		width: 120px;
 	}
 </style>
