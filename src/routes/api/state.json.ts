@@ -7,7 +7,7 @@ const gameStateKey = 'GameState';
 export async function get({ platform }: RequestEvent) {
 	const redis = new Redis({ url: platform.env.UPSTASH_URL, token: platform.env.UPSTASH_TOKEN });
 
-	const state = JSON.parse(await redis.get(gameStateKey));
+	const state = (await redis.get(gameStateKey)) as string;
 	return {
 		body: { state }
 	};

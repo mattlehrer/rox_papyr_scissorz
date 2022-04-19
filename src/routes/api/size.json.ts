@@ -26,7 +26,7 @@ export async function post({ request, platform }: RequestEvent) {
 
 	// console.log('Current Game Size: ', platform.env.RPS.get(gameSizeKey));
 
-	await redis.set(gameSizeKey, JSON.stringify(data.size));
+	await redis.set(gameSizeKey, data.size);
 
 	// console.log('New Game Size: ', data.size);
 	return { status: 201 };
