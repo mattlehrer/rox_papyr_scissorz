@@ -103,13 +103,13 @@
 				console.log({ data });
 				try {
 					// hasState(data);
-					p1X = Number(data.p1xcurrent) || 0;
-					p1Y = Number(data.p1ycurrent) || 0;
-					p1Z = Number(data.p1zcurrent) || 0;
+					p1X = Number(data.state.p1xcurrent) || 0;
+					p1Y = Number(data.state.p1ycurrent) || 0;
+					p1Z = Number(data.state.p1zcurrent) || 0;
 
-					p2X = Number(data.p2xcurrent) || 0;
-					p2Y = Number(data.p2ycurrent) || 0;
-					p2Z = Number(data.p2zcurrent) || 0;
+					p2X = Number(data.state.p2xcurrent) || 0;
+					p2Y = Number(data.state.p2ycurrent) || 0;
+					p2Z = Number(data.state.p2zcurrent) || 0;
 				} catch (e) {
 					console.error(e);
 				}
