@@ -14,10 +14,13 @@
 	let sizeInterval: NodeJS.Timer;
 	let stateInterval: NodeJS.Timer;
 
-	let isVoiceControlled = true;
+	let isVoiceControlled = false;
 
 	let player1Color = 'blue';
 	let player2Color = 'red';
+
+	let ambientLightIntensity = 0.6;
+	let directionalLightIntensity = 0.6;
 
 	let sphereRadius = $gameSize;
 	let camX = 0.6,
@@ -72,8 +75,8 @@
 	});
 
 	$: if (isVoiceControlled) {
-		sizeInterval = sizeInterval ?? setInterval(updateSize, 5000);
-		stateInterval = stateInterval ?? setInterval(updateState, 2500);
+		sizeInterval = sizeInterval ?? setInterval(updateSize, 10000);
+		stateInterval = stateInterval ?? setInterval(updateState, 3000);
 		updateSize();
 		updateState();
 	} else {
@@ -238,8 +241,12 @@
 		position={[camX * sphereRadius, (camY * sphereRadius) / 2, camZ * sphereRadius]}
 	/>
 	<SC.OrbitControls enableZoom={true} />
-	<SC.AmbientLight intensity={0.6} />
-	<SC.DirectionalLight intensity={0.6} position={[-2, 3, 2]} shadow={{ mapSize: [2048, 2048] }} />
+	<SC.AmbientLight intensity={ambientLightIntensity} />
+	<SC.DirectionalLight
+		intensity={directionalLightIntensity}
+		position={[-5, 2, 7]}
+		shadow={{ mapSize: [2048, 2048] }}
+	/>
 </SC.Canvas>
 
 <div class="absolute top-16 sm:top-4 left-4 text-white">
@@ -384,6 +391,17 @@
 	<label
 		><input class="w-20" type="range" bind:value={sphereRadius} min={3} max={30} step={1} /> Game
 		Size ({sphereRadius})</label
+	>
+	<label
+		><input
+			class="w-20"
+			type="range"
+			bind:value={ambientLightIntensity}
+			min={0}
+			max={5}
+			step={0.1}
+		/>
+		Ambient Light ({ambientLightIntensity.toPrecision(2)})</label
 	>
 	<!-- <label><input type="range" bind:value={camX} min={0.1} max={20} step={0.1} /> camera X</label>
 	<label><input type="range" bind:value={camY} min={0.1} max={20} step={0.1} /> camera Y</label>
