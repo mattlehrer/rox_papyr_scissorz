@@ -1,15 +1,13 @@
 <script lang="ts">
 	// TODO:
-	// add button for turning redis calls on / off
 	// add control to adjust ambient lighting / fog
 	// add control to adjust spot lighting
-	// add line from origin through player positions
 	// add check for game winner?
 	import { gameSize } from '$lib/stores';
 	import { distanceFromOrigin } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import * as SC from 'svelte-cubed';
-	import { cubicOut } from 'svelte/easing';
+	import { quintInOut } from 'svelte/easing';
 	import { tweened, type Tweened } from 'svelte/motion';
 	import * as THREE from 'three';
 
@@ -19,7 +17,7 @@
 	let isVoiceControlled = true;
 
 	let player1Color = 'blue';
-	let player2Color = 'green';
+	let player2Color = 'red';
 
 	let sphereRadius = $gameSize;
 	let camX = 0.6,
@@ -34,12 +32,12 @@
 		p2Z = 0;
 
 	let player1Position: Tweened<[number, number, number]> = tweened([p1X, p1Y, -p1Z], {
-		duration: 1000,
-		easing: cubicOut
+		duration: 2500,
+		easing: quintInOut
 	});
 	let player2Position: Tweened<[number, number, number]> = tweened([p2X, p2Y, -p2Z], {
-		duration: 1000,
-		easing: cubicOut
+		duration: 2500,
+		easing: quintInOut
 	});
 
 	$: player1Position.set([p1X, p1Y, -p1Z]);
@@ -76,6 +74,8 @@
 	$: if (isVoiceControlled) {
 		sizeInterval = sizeInterval ?? setInterval(updateSize, 5000);
 		stateInterval = stateInterval ?? setInterval(updateState, 2500);
+		updateSize();
+		updateState();
 	} else {
 		clearInterval(sizeInterval);
 		clearInterval(stateInterval);
@@ -101,9 +101,9 @@
 			.then((res) => res.json())
 			.then((data: any) => {
 				console.log({ positions: data.state });
-				if (data.state.p1) [p1X, p1Y, p1Z] = data.state.p1;
+				if (data.state.p1?.length === 3) [p1X, p1Y, p1Z] = data.state.p1;
 
-				if (data.state.p2) [p2X, p2Y, p2Z] = data.state.p2;
+				if (data.state.p2?.length === 3) [p2X, p2Y, p2Z] = data.state.p2;
 			})
 			.catch((e) => {
 				console.error(e);
@@ -132,7 +132,7 @@
 		/>
 
 		<SC.Primitive
-			object={new THREE.GridHelper(4 * sphereRadius, 4 * sphereRadius, 'red', 'white')}
+			object={new THREE.GridHelper(4 * sphereRadius, 4 * sphereRadius, 'green', 'white')}
 			position={[0, 0.001, 0]}
 		/>
 	</SC.Group>
@@ -184,6 +184,13 @@
 		scale={[0.2, 0.2, 0.2]}
 		rotation={[0, 0, 0]}
 	/>
+	<SC.Primitive
+		object={new THREE.AxesHelper(sphereRadius).setColors(
+			new THREE.Color(0x00bb00),
+			new THREE.Color(0x00bb00),
+			new THREE.Color(0x00bb00)
+		)}
+	/>
 
 	<!-- Player 1 -->
 	<SC.Mesh
@@ -194,6 +201,15 @@
 		})}
 		position={$player1Position}
 		rotation={[spin, 0, -spin]}
+	/>
+	<SC.Primitive
+		object={new THREE.ArrowHelper(
+			new THREE.Vector3($player1Position[0], $player1Position[1], $player1Position[2]).normalize(),
+			new THREE.Vector3(0, 0, 0),
+			distanceFromOrigin(...$player1Position),
+			0x000088,
+			0.1 * sphereRadius
+		)}
 	/>
 
 	<!-- Player 2 -->
@@ -206,6 +222,15 @@
 		position={$player2Position}
 		scale={[size * 1.5, size * 1.5, size * 1.5]}
 		rotation={[0, spin, spin]}
+	/>
+	<SC.Primitive
+		object={new THREE.ArrowHelper(
+			new THREE.Vector3($player2Position[0], $player2Position[1], $player2Position[2]).normalize(),
+			new THREE.Vector3(0, 0, 0),
+			distanceFromOrigin(...$player2Position),
+			0x880000,
+			0.1 * sphereRadius
+		)}
 	/>
 
 	<SC.PerspectiveCamera
@@ -282,33 +307,33 @@
 	</div>
 	<label class="mt-2"
 		><input
-			class="w-20 sm:w-32"
+			class="w-20 sm:w-32 bg-blue-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p1X}
-			min={-2 * sphereRadius}
-			max={2 * sphereRadius}
+			min={-1.2 * sphereRadius}
+			max={1.2 * sphereRadius}
 			step={1}
 		/>
 		P1 roX ({p1X})</label
 	>
 	<label
 		><input
-			class="w-20 sm:w-32"
+			class="w-20 sm:w-32 bg-blue-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p1Y}
-			min={-2 * sphereRadius}
-			max={2 * sphereRadius}
+			min={-1.2 * sphereRadius}
+			max={1.2 * sphereRadius}
 			step={1}
 		/>
 		P1 papYr ({p1Y})</label
 	>
 	<label
 		><input
-			class="w-20 sm:w-32"
+			class="w-20 sm:w-32 bg-blue-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p1Z}
-			min={-2 * sphereRadius}
-			max={2 * sphereRadius}
+			min={-1.2 * sphereRadius}
+			max={1.2 * sphereRadius}
 			step={1}
 		/>
 		P1 scissorZ ({p1Z})</label
@@ -319,33 +344,33 @@
 
 	<label class="mt-2"
 		><input
-			class="w-20 sm:w-32"
+			class="w-20 sm:w-32 bg-red-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p2X}
-			min={-2 * sphereRadius}
-			max={2 * sphereRadius}
+			min={-1.2 * sphereRadius}
+			max={1.2 * sphereRadius}
 			step={1}
 		/>
 		P2 roX ({p2X})</label
 	>
 	<label
 		><input
-			class="w-20 sm:w-32"
+			class="w-20 sm:w-32 bg-red-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p2Y}
-			min={-2 * sphereRadius}
-			max={2 * sphereRadius}
+			min={-1.2 * sphereRadius}
+			max={1.2 * sphereRadius}
 			step={1}
 		/>
 		P2 papYr ({p2Y})</label
 	>
 	<label
 		><input
-			class="w-20 sm:w-32"
+			class="w-20 sm:w-32 bg-red-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p2Z}
-			min={-2 * sphereRadius}
-			max={2 * sphereRadius}
+			min={-1.2 * sphereRadius}
+			max={1.2 * sphereRadius}
 			step={1}
 		/>
 		P2 scissorZ ({p2Z})</label
