@@ -1,9 +1,10 @@
 <script lang="ts">
 	// TODO:
-	// deal with cache issue
-	// add distance calculation
-	// add buttons
-	// add check for game winner
+	// add button for turning redis calls on / off
+	// add control to adjust ambient lighting / fog
+	// add control to adjust spot lighting
+	// add line from origin through player positions
+	// add check for game winner?
 	import { gameSize } from '$lib/stores';
 	import { distanceFromOrigin } from '$lib/utils';
 	import { onMount } from 'svelte';
@@ -13,6 +14,9 @@
 	import * as THREE from 'three';
 
 	let sizeInterval: NodeJS.Timer;
+	let stateInterval: NodeJS.Timer;
+
+	let isVoiceControlled = true;
 
 	let player1Color = 'blue';
 	let player2Color = 'green';
@@ -65,41 +69,42 @@
 	// }
 
 	onMount(async () => {
-		sizeInterval = setInterval(updateSize, 5000);
-		setInterval(updateState, 1000);
 		await updateSize();
+		await updateState();
 	});
 
+	$: if (isVoiceControlled) {
+		sizeInterval = sizeInterval ?? setInterval(updateSize, 5000);
+		stateInterval = stateInterval ?? setInterval(updateState, 2500);
+	} else {
+		clearInterval(sizeInterval);
+		clearInterval(stateInterval);
+	}
+
 	async function updateSize() {
-		// await fetch(`/api/size.json`, {
 		await fetch(`/api/size.json`)
 			.then((res) => res.json())
 			.then((data: any) => {
 				// console.log(JSON.stringify(data, null, 2));
 				console.log({ data });
 
-				try {
-					if (data.size !== undefined && data.size !== $gameSize) clearInterval(sizeInterval);
-
-					$gameSize = data.size || $gameSize;
-				} catch (e) {
-					console.error(e);
-				}
+				$gameSize = data.size || $gameSize;
+			})
+			.catch((e) => {
+				console.error(e);
 			});
 	}
 	async function updateState() {
-		// await fetch(`/api/state.json`, {
 		await fetch(`/api/state.json`)
 			.then((res) => res.json())
 			.then((data: any) => {
 				console.log({ positions: data.state });
-				try {
-					if (data.state.p1) [p1X, p1Y, p1Z] = data.state.p1;
+				if (data.state.p1) [p1X, p1Y, p1Z] = data.state.p1;
 
-					if (data.state.p2) [p2X, p2Y, p2Z] = data.state.p2;
-				} catch (e) {
-					console.error(e);
-				}
+				if (data.state.p2) [p2X, p2Y, p2Z] = data.state.p2;
+			})
+			.catch((e) => {
+				console.error(e);
 			});
 	}
 </script>
@@ -211,7 +216,66 @@
 </SC.Canvas>
 
 <div class="absolute top-16 sm:top-4 left-4 text-white">
-	<div class={distanceFromOrigin(p1X, p1Y, p1Z) > 10 ? 'text-green-400' : 'text-white'}>
+	<!-- Voice mode toggle -->
+	<div class="flex items-center">
+		<!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+		<button
+			type="button"
+			class={`${
+				isVoiceControlled ? 'bg-blue-600' : 'bg-gray-200 border-blue-600'
+			} relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 `}
+			role="switch"
+			aria-checked={isVoiceControlled}
+			on:click={() => (isVoiceControlled = !isVoiceControlled)}
+		>
+			<span class="sr-only">Use voice mode</span>
+			<!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+			<span
+				class={`${
+					isVoiceControlled ? 'translate-x-5' : 'translate-x-0'
+				} pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
+			>
+				<!-- Enabled: "opacity-0 ease-out duration-100", Not Enabled: "opacity-100 ease-in duration-200" -->
+				<span
+					class={`${
+						isVoiceControlled
+							? 'opacity-0 ease-out duration-100'
+							: 'opacity-100 ease-in duration-200'
+					} absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}
+					aria-hidden="true"
+				>
+					<svg class="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 12 12">
+						<path
+							d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+				</span>
+				<!-- Enabled: "opacity-100 ease-in duration-200", Not Enabled: "opacity-0 ease-out duration-100" -->
+				<span
+					class={`${
+						isVoiceControlled
+							? 'opacity-100 ease-in duration-200'
+							: 'opacity-0 ease-out duration-100'
+					} absolute inset-0 h-full w-full flex items-center justify-center transition-opacity`}
+					aria-hidden="true"
+				>
+					<svg class="h-3 w-3 text-indigo-600" fill="currentColor" viewBox="0 0 12 12">
+						<path
+							d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"
+						/>
+					</svg>
+				</span>
+			</span>
+		</button>
+		<span class="ml-3" id="annual-billing-label">
+			<span class="text-sm font-medium text-gray-100">Use Voice Controls </span>
+		</span>
+	</div>
+	<div class={`mt-3 ${distanceFromOrigin(p1X, p1Y, p1Z) > 10 ? 'text-green-400' : 'text-white'}`}>
 		Player 1: {distanceFromOrigin(p1X, p1Y, p1Z).toPrecision(4)} from the origin
 	</div>
 	<label class="mt-2"
