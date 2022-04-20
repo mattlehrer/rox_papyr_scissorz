@@ -156,7 +156,7 @@
 			opacity: 1,
 			transparent: true
 		})}
-		position={[10, 0, 0]}
+		position={[2 * sphereRadius, 0, 0]}
 		scale={[0.2, 0.2, 0.2]}
 		rotation={[0, 0, 0]}
 	/>
@@ -168,7 +168,7 @@
 			opacity: 1,
 			transparent: true
 		})}
-		position={[0, 8, 0]}
+		position={[0, 1.5 * sphereRadius, 0]}
 		scale={[0.2, 0.2, 0.2]}
 		rotation={[0, 0, 0]}
 	/>
@@ -180,7 +180,7 @@
 			opacity: 1,
 			transparent: true
 		})}
-		position={[0, 0, -9]}
+		position={[0, 0, -2 * sphereRadius]}
 		scale={[0.2, 0.2, 0.2]}
 		rotation={[0, 0, 0]}
 	/>
