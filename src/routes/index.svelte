@@ -79,6 +79,8 @@
 	} else {
 		clearInterval(sizeInterval);
 		clearInterval(stateInterval);
+		sizeInterval = undefined;
+		stateInterval = undefined;
 	}
 
 	async function updateSize() {
