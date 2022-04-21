@@ -1,14 +1,11 @@
 <script lang="ts">
 	// TODO:
-	// add control to adjust ambient lighting / fog
-	// add control to adjust spot lighting
-	// add check for game winner?
 	import { gameSize } from '$lib/stores';
 	import { distanceFromOrigin } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import * as SC from 'svelte-cubed';
 	import { quintInOut } from 'svelte/easing';
-	import { tweened, type Tweened } from 'svelte/motion';
+	import { tweened,type Tweened } from 'svelte/motion';
 	import * as THREE from 'three';
 
 	let sizeInterval: NodeJS.Timer;
