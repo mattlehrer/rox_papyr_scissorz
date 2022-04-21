@@ -2,10 +2,9 @@
 	// TODO:
 	import { gameSize } from '$lib/stores';
 	import { distanceFromOrigin } from '$lib/utils';
-	import { onMount } from 'svelte';
 	import * as SC from 'svelte-cubed';
 	import { quintInOut } from 'svelte/easing';
-	import { tweened,type Tweened } from 'svelte/motion';
+	import { tweened, type Tweened } from 'svelte/motion';
 	import * as THREE from 'three';
 
 	let sizeInterval: NodeJS.Timer;
@@ -65,11 +64,6 @@
 	// 	camZ = 7;
 	// 	fov = 130;
 	// }
-
-	onMount(async () => {
-		await updateSize();
-		await updateState();
-	});
 
 	$: if (isVoiceControlled) {
 		sizeInterval = sizeInterval ?? setInterval(updateSize, 10000);
