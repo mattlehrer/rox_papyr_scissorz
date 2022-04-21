@@ -313,7 +313,7 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P1 roX ({p1X})</label
+		P1 roX: {p1X}</label
 	>
 	<label
 		><input
@@ -325,7 +325,7 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P1 papYr ({p1Y})</label
+		P1 papYr: {p1Y}</label
 	>
 	<label
 		><input
@@ -337,7 +337,7 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P1 scissorZ ({p1Z})</label
+		P1 scissorZ: {p1Z}</label
 	>
 	<div class={`mt-6 ${distanceFromOrigin(p2X, p2Y, p2Z) > 10 ? 'text-green-400' : 'text-white'}`}>
 		Player 2: {distanceFromOrigin(p2X, p2Y, p2Z).toPrecision(4)} from the origin
@@ -353,7 +353,7 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P2 roX ({p2X})</label
+		P2 roX: {p2X}</label
 	>
 	<label
 		><input
@@ -365,7 +365,7 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P2 papYr ({p2Y})</label
+		P2 papYr: {p2Y}</label
 	>
 	<label
 		><input
@@ -377,7 +377,7 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P2 scissorZ ({p2Z})</label
+		P2 scissorZ: {p2Z}</label
 	>
 	<button
 		on:click={resetPositions}
@@ -396,7 +396,7 @@
 			max={30}
 			step={1}
 		/>
-		Game Size ({sphereRadius})</label
+		Game Size: {sphereRadius}</label
 	>
 	<!-- <label
 		><input
