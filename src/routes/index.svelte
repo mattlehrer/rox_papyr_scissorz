@@ -305,6 +305,7 @@
 	</div>
 	<label class="mt-2"
 		><input
+			class:hidden={isVoiceControlled}
 			class="w-20 sm:w-32 bg-blue-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p1X}
@@ -316,6 +317,7 @@
 	>
 	<label
 		><input
+			class:hidden={isVoiceControlled}
 			class="w-20 sm:w-32 bg-blue-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p1Y}
@@ -327,6 +329,7 @@
 	>
 	<label
 		><input
+			class:hidden={isVoiceControlled}
 			class="w-20 sm:w-32 bg-blue-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p1Z}
@@ -342,6 +345,7 @@
 
 	<label class="mt-2"
 		><input
+			class:hidden={isVoiceControlled}
 			class="w-20 sm:w-32 bg-red-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p2X}
@@ -353,6 +357,7 @@
 	>
 	<label
 		><input
+			class:hidden={isVoiceControlled}
 			class="w-20 sm:w-32 bg-red-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p2Y}
@@ -364,6 +369,7 @@
 	>
 	<label
 		><input
+			class:hidden={isVoiceControlled}
 			class="w-20 sm:w-32 bg-red-400 appearance-none rounded-lg h-2"
 			type="range"
 			bind:value={p2Z}
@@ -375,15 +381,24 @@
 	>
 	<button
 		on:click={resetPositions}
+		class:hidden={isVoiceControlled}
 		class="mt-3 border border-red-400 py-1 px-2 rounded bg-gray-800 bg-opacity-50">New Game</button
 	>
 </div>
 <div class="absolute top-4 left-4 sm:left-auto sm:right-4 text-white">
 	<label
-		><input class="w-20" type="range" bind:value={sphereRadius} min={3} max={30} step={1} /> Game
-		Size ({sphereRadius})</label
+		><input
+			class:hidden={isVoiceControlled}
+			class="w-20"
+			type="range"
+			bind:value={sphereRadius}
+			min={3}
+			max={30}
+			step={1}
+		/>
+		Game Size ({sphereRadius})</label
 	>
-	<label
+	<!-- <label
 		><input
 			class="w-20"
 			type="range"
@@ -393,7 +408,7 @@
 			step={0.1}
 		/>
 		Ambient Light ({ambientLightIntensity.toPrecision(2)})</label
-	>
+	> -->
 	<!-- <label><input type="range" bind:value={camX} min={0.1} max={20} step={0.1} /> camera X</label>
 	<label><input type="range" bind:value={camY} min={0.1} max={20} step={0.1} /> camera Y</label>
 	<label><input type="range" bind:value={camZ} min={0.1} max={20} step={0.1} /> camera Z</label>
