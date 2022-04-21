@@ -19,9 +19,9 @@
 	let directionalLightIntensity = 0.6;
 
 	let sphereRadius = $gameSize;
-	let camX = 0.6,
-		camY = 1,
-		camZ = 1.4;
+	let camX = -0.4,
+		camY = 1.6,
+		camZ = 0.7;
 	let fov = 130;
 	let p1X = 0,
 		p1Y = 0,
@@ -162,7 +162,7 @@
 			opacity: 1,
 			transparent: true
 		})}
-		position={[0, 1.5 * sphereRadius, 0]}
+		position={[0, 1.25 * sphereRadius, 0]}
 		scale={[0.2, 0.2, 0.2]}
 		rotation={[0, 0, 0]}
 	/>
@@ -301,7 +301,7 @@
 		</span>
 	</div>
 	<div class={`mt-3 ${distanceFromOrigin(p1X, p1Y, p1Z) > 10 ? 'text-green-400' : 'text-white'}`}>
-		Player 1: {distanceFromOrigin(p1X, p1Y, p1Z).toPrecision(4)} from the origin
+		Player 1 is {distanceFromOrigin(p1X, p1Y, p1Z).toPrecision(4)} from the origin
 	</div>
 	<label class="mt-2"
 		><input
@@ -313,7 +313,8 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P1 roX: {p1X}</label
+		<div class="inline-block w-[5.75rem]">P1 roX:</div>
+		<div class="tabular-nums w-4 text-right inline-block">{p1X}</div></label
 	>
 	<label
 		><input
@@ -325,7 +326,8 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P1 papYr: {p1Y}</label
+		<div class="inline-block w-[5.75rem]">P1 papYr:</div>
+		<div class="tabular-nums w-4 text-right inline-block">{p1Y}</div></label
 	>
 	<label
 		><input
@@ -337,10 +339,11 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P1 scissorZ: {p1Z}</label
-	>
+		<div class="inline-block w-[5.75rem]">P1 scissorZ:</div>
+		<div class="tabular-nums w-4 text-right inline-block">{p1Z}</div>
+	</label>
 	<div class={`mt-6 ${distanceFromOrigin(p2X, p2Y, p2Z) > 10 ? 'text-green-400' : 'text-white'}`}>
-		Player 2: {distanceFromOrigin(p2X, p2Y, p2Z).toPrecision(4)} from the origin
+		Player 2 is {distanceFromOrigin(p2X, p2Y, p2Z).toPrecision(4)} from the origin
 	</div>
 
 	<label class="mt-2"
@@ -353,8 +356,9 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P2 roX: {p2X}</label
-	>
+		<div class="inline-block w-[5.75rem]">P2 roX:</div>
+		<div class="tabular-nums w-4 text-right inline-block">{p2X}</div>
+	</label>
 	<label
 		><input
 			class:hidden={isVoiceControlled}
@@ -365,7 +369,8 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P2 papYr: {p2Y}</label
+		<div class="inline-block w-[5.75rem]">P2 papYr:</div>
+		<div class="tabular-nums w-4 text-right inline-block">{p2Y}</div></label
 	>
 	<label
 		><input
@@ -377,7 +382,8 @@
 			max={1.2 * sphereRadius}
 			step={1}
 		/>
-		P2 scissorZ: {p2Z}</label
+		<div class="inline-block w-[5.75rem]">P2 scissorZ:</div>
+		<div class="tabular-nums w-4 text-right inline-block">{p2Z}</div></label
 	>
 	<button
 		on:click={resetPositions}
@@ -396,7 +402,8 @@
 			max={30}
 			step={1}
 		/>
-		Game Size: {sphereRadius}</label
+		<div class="inline-block w-[5.75rem]">Radius:</div>
+		<div class="tabular-nums w-4 text-right inline-block">{sphereRadius}</div></label
 	>
 	<!-- <label
 		><input
