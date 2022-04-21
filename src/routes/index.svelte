@@ -9,7 +9,9 @@
 	import * as SC from 'svelte-cubed';
 	import { quintInOut } from 'svelte/easing';
 	import { tweened, type Tweened } from 'svelte/motion';
+	import type { BufferGeometry } from 'three';
 	import * as THREE from 'three';
+	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 	let sizeInterval: NodeJS.Timer;
 	let stateInterval: NodeJS.Timer;
@@ -41,6 +43,17 @@
 	let player2Position: Tweened<[number, number, number]> = tweened([p2X, p2Y, -p2Z], {
 		duration: 2500,
 		easing: quintInOut
+	});
+
+	let p1Model: BufferGeometry, p2Model: BufferGeometry;
+	let loader = new GLTFLoader();
+	loader.load('models/star.gltf', (gltf) => {
+		// console.log(gltf);
+		p1Model = gltf.scene.children[0].geometry;
+	});
+	loader.load('models/craft_racer.gltf', (gltf) => {
+		// console.log(gltf);
+		p2Model = gltf.scene.children[0].geometry;
 	});
 
 	$: player1Position.set([p1X, p1Y, -p1Z]);
@@ -196,15 +209,11 @@
 	/>
 
 	<!-- Player 1 -->
-	<SC.Mesh
-		geometry={new THREE.ConeGeometry((size * 2) / 3, size * 2, 32)}
-		material={new THREE.MeshStandardMaterial({
-			color: player1Color,
-			opacity: 0.1
-		})}
-		position={$player1Position}
-		rotation={[spin, 0, -spin]}
-	/>
+	<!-- geometry={new THREE.ConeGeometry((size * 2) / 3, size * 2, 32)} -->
+	<!-- material={new THREE.MeshStandardMaterial({
+			color: player1Color
+		})} -->
+	<SC.Mesh geometry={p1Model} position={$player1Position} rotation={[spin, 0, -spin]} />
 	<SC.Primitive
 		object={new THREE.ArrowHelper(
 			new THREE.Vector3($player1Position[0], $player1Position[1], $player1Position[2]).normalize(),
@@ -216,6 +225,7 @@
 	/>
 
 	<!-- Player 2 -->
+	<!-- geometry={p2Model} -->
 	<SC.Mesh
 		geometry={new THREE.BoxGeometry()}
 		material={new THREE.MeshStandardMaterial({
