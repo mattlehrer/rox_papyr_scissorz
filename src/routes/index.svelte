@@ -1,5 +1,4 @@
 <script lang="ts">
-	// TODO:
 	import { gameSize } from '$lib/stores';
 	import { distanceFromOrigin } from '$lib/utils';
 	import * as SC from 'svelte-cubed';
