@@ -14,8 +14,8 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^3.6.0",
-		"@sveltejs/adapter-auto": "1.0.0-next.35",
-		"@sveltejs/kit": "1.0.0-next.315",
+		"@sveltejs/adapter-auto": "1.0.0-next.36",
+		"@sveltejs/kit": "1.0.0-next.318",
 		"@types/three": "^0.139.0",
 		"@typescript-eslint/eslint-plugin": "^5.20.0",
 		"@typescript-eslint/parser": "^5.20.0",
