@@ -30,11 +30,11 @@
 		p2Z = 0;
 
 	let player1Position: Tweened<[number, number, number]> = tweened([p1X, p1Y, -p1Z], {
-		duration: 2500,
+		duration: 7500,
 		easing: quintInOut
 	});
 	let player2Position: Tweened<[number, number, number]> = tweened([p2X, p2Y, -p2Z], {
-		duration: 2500,
+		duration: 7500,
 		easing: quintInOut
 	});
 
