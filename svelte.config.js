@@ -12,7 +12,18 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		vite: {
+			resolve: {
+				alias: {
+					process: 'process/browser',
+					stream: 'stream-browserify',
+					util: 'util',
+					https: 'agent-base',
+					zlib: 'browserify-zlib'
+				}
+			}
+		}
 	}
 };
 
