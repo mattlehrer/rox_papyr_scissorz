@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { gameSize } from '$lib/stores';
 	import { distanceFromOrigin } from '$lib/utils';
 	import * as SC from 'svelte-cubed';
 	import { quintInOut } from 'svelte/easing';
@@ -17,7 +16,8 @@
 	let ambientLightIntensity = 0.6;
 	let directionalLightIntensity = 0.6;
 
-	$: sphereRadius = $gameSize;
+	// $: sphereRadius = $gameSize;
+	$: sphereRadius = 10;
 	let camX = -0.4,
 		camY = 1.6,
 		camZ = 0.7;
@@ -83,7 +83,7 @@
 				// console.log(JSON.stringify(data, null, 2));
 				console.log({ data });
 
-				$gameSize = data.size || $gameSize;
+				sphereRadius = data.size || sphereRadius;
 			})
 			.catch((e) => {
 				console.error(e);
