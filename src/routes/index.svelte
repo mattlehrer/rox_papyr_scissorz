@@ -17,7 +17,7 @@
 	let ambientLightIntensity = 0.6;
 	let directionalLightIntensity = 0.6;
 
-	let sphereRadius = $gameSize;
+	$: sphereRadius = $gameSize;
 	let camX = -0.4,
 		camY = 1.6,
 		camZ = 0.7;
